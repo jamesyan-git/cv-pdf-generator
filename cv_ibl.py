@@ -2,7 +2,7 @@
 # coding=utf-8
 
 from __future__ import print_function
-from PyPDF2 import PdfFileWriter, PdfFileReader, PdfFileMerger
+from PyPDF2 import PdfFileWriter, PdfFileReader, PdfFileMerger, PdfMerger
 from reportlab.pdfgen import canvas
 import os
 import re
@@ -348,20 +348,20 @@ def main():
 
 
     # group output
-    # output_all_pdf = PdfFileMerger()
-    # output_all_list = []
+    output_all_pdf = PdfMerger()
+    output_all_list = []
 
-    # pdfs_path = 'C:/Users/User/projects/cv_ibl_2020_jan/out/'
-    # filenames = []
-    # for file_name in os.listdir(pdfs_path):
-    #     # output_all_pdf.append(open("output_smaller_3/" + file_name))
-    #     filenames.append(file_name)
-    # filenames.sort()
-    # for file_name in filenames:
-    #     print(file_name)
-    #     temp = "C:/Users/User/projects/cv_ibl_2020_jan/out" + file_name
-    #     output_all_pdf.append(open(temp, 'rb'))
-    # output_all = open("C:/Users/User/projects/cv_ibl_2020_jan", "wb")
-    # output_all_pdf.write(output_all)
+    pdfs_path = 'C:/Users/User/projects/cv_ibl_2020_jan/out/'
+    filenames = []
+    for file_name in os.listdir(pdfs_path):
+        # output_all_pdf.append(open("output_smaller_3/" + file_name))
+        filenames.append(file_name)
+    filenames.sort()
+    for file_name in filenames:
+        print(file_name)
+        temp = "C:/Users/User/projects/cv_ibl_2020_jan/out/" + file_name
+        output_all_pdf.append(open(temp, 'rb'))
+    output_all = open("C:/Users/User/projects/cv_ibl_2020_jan/output_jan_2020.pdf", "wb")
+    output_all_pdf.write(output_all)
 
 main()
