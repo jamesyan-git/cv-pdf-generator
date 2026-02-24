@@ -57,21 +57,6 @@ def make_resume(student_details):
     # Setup
     v = 10.8 * inch
 
-    # IBL_ID = student_details[0]
-    # Last_name = student_details[1]
-    # First_name = student_details[2]
-    # Preferred_name = student_details[3]
-    # degree = student_details[4]
-    # major = student_details[5]
-    # specialisation = student_details[6]
-    # degree_and_major = student_details[7]
-    # ibl_placement_interest = student_details[8]
-    # fav_subjects = student_details[9]
-    # employment_history = student_details[10]
-    # career_interests = student_details[11]
-    # other_interests = student_details[12]
-    # photo = student_details[13]
-
     IBL_ID = student_details[0]
     Last_name = student_details[1]
     First_name = student_details[2]
@@ -90,13 +75,8 @@ def make_resume(student_details):
     IBL_ID = str(ibl_id)
 
     output_filename = "out/{}_{}.pdf".format(str(Last_name).replace(' ','_'), First_name.replace(' ','_'))
-    # output_filename = "output_april_2019/{}.pdf".format(IBL_ID)
-
 
     print("Creating: " + output_filename)
-    # print(len(student_details))
-    # print("Name: {}{}\nSecurity Placement Interest: {}\nAre you in BIT: {}\nBIT Majors: {}\n\n".format(First_name, Last_name, Security_placements, Are_you_in_the_Bachelor_of_Information_Technology, BIT_majors))
-
     """
     Create Canvas
     """
@@ -153,7 +133,6 @@ def make_resume(student_details):
     if id[0] == '0':
         id = id[1]
     c.setFont("Helvetica-Bold", 36 * point)
-    # c.drawString(PAGEWIDTH - 80, 11 * inch, "{}".format(id))
 
 
     """
@@ -174,7 +153,6 @@ def make_resume(student_details):
     else:
         c.setFont("Helvetica-Bold", 24 * point)
     c.drawString(1 * inch, v, "CV: {}".format(name_string))
-    # v -= 24 * point
     v = 758
 
     """
@@ -183,8 +161,7 @@ def make_resume(student_details):
     spaces_required = [70, 60, 48, 125, 40]
     detail_section = ["First Name: ", "Surname: ","Degree: "]
     print(degree)
-    # if degree == "Other degree":
-        # degree = degree_and_major
+
     detail_response = [First_name, Last_name, degree]
     for i, field in enumerate(detail_section):
         c.setFont("Helvetica-Bold", 12 * point)
@@ -305,113 +282,6 @@ def make_resume(student_details):
 
     v -= 10 * point
 
-    # if Key_Skill_1 != '' and Key_Skill_1 != '0':
-    #     v = 640
-    #     #Key Skills section
-    #     c.setFont("Helvetica-Bold", 12 * point)
-    #     c.drawString(1 * inch, v, "Key Skills")
-    #     v -= 10 * point
-    #
-    #     c.setFont("Helvetica", 8 * point)
-    #     v = draw_paragraph(c, v, '• ' + Key_Skill_1)
-    #     if Key_Skill_2 != ''and Key_Skill_2 != '0':
-    #         v = draw_paragraph(c, v, '• ' + Key_Skill_2)
-    #     if Key_Skill_3 != ''and Key_Skill_3 != '0':
-    #         v = draw_paragraph(c, v, '• ' + Key_Skill_3)
-    #
-    # # Achievements Section
-    # v -= 12 * point
-    # if Achievement_1 != '' and Achievement_1 != '0':
-    #     c.setFont("Helvetica-Bold", 12 * point)
-    #     c.drawString(1 * inch, v, "Achievements")
-    #     v -= 10 * point
-    #
-    #     c.setFont("Helvetica", 8 * point)
-    #     v = draw_paragraph(c, v, '• ' + Achievement_1)
-    #     if Achievement_2 != '' and Achievement_2 != '0':
-    #         v = draw_paragraph(c, v, '• ' + Achievement_2)
-    #     if Achievement_3 != '' and Achievement_3 != '0':
-    #         v = draw_paragraph(c, v, '• ' + Achievement_3)
-    #
-    #     v -= 10 * point
-    #
-    #
-    # """
-    # BEGIN WORK HISTORIES SECTION
-    # """
-    # # Work Histories setup
-    # # 0: Organisation
-    # # 1: Role
-    # # 2: responsibilities
-    # # 3: start date
-    # # 4: end date
-    # work_histories_1 = [element for element in student_details[8:13]]
-    # work_histories_2 = [element for element in student_details[13:18]]
-    # work_histories_3 = [element for element in student_details[18:23]]
-    # work_histories_4 = [element for element in student_details[23:28]]
-    # work_histories = [work_histories_1, work_histories_2, work_histories_3, work_histories_4]
-    # for x in work_histories:
-    #     print(x)
-    #
-    # # Height of pointer
-    # # v = 600
-    #
-    # if work_histories[0][0] != '' and work_histories_1[0][0] != '0':
-    #     c.setFont("Helvetica-Bold", 12 * point)
-    #     c.drawString(1 * inch, v, "Work History")
-    #     v -= 12 * point
-    #     c.setFont("Helvetica", 10 * point)
-    #
-    #     for i in range(4):
-    #         if work_histories[i][0] != '' and work_histories[i][0] != '0':
-    #             c.setFont("Helvetica", 10 * point)
-    #             work_history_string = "{}: {} ({} - {})".format(work_histories[i][0], work_histories[i][1],
-    #                                                             work_histories[i][3], work_histories[i][4])
-    #             c.drawString(1 * inch, v, work_history_string)
-    #             v -= 10 * point
-    #
-    #             c.setFont("Helvetica", 8 * point)
-    #             v = draw_paragraph(c, v, work_histories[i][2])
-    #             v -= 5 * point
-    #     v -= 5 * point
-    #
-    #     # START subject enjoyed most
-    #     # Draw Header
-    # c.setFont("Helvetica-Bold", 12 * point)
-    # c.drawString(1 * inch, v, "Subjects enjoyed most")
-    # v -= 12 * point
-    #
-    # c.setFont("Helvetica", 8 * point)
-    # v = draw_paragraph(c, v, subjects_enjoyed_most)
-    #
-    # # END subject enjoyed most
-    # v -= 10 * point
-    #
-    # # START CAREER INTERESTS
-    # # Write Header
-    # c.setFont("Helvetica-Bold", 12 * point)
-    # c.drawString(1 * inch, v, "Professional/Career Interests")
-    # v -= 12 * point
-    #
-    # # Write Details
-    # c.setFont("Helvetica", 8 * point)
-    # v = draw_paragraph(c, v, Please_describe_your_career_interests)
-    #
-    # # END CAREER INTERESTS
-    # v -= 10 *  point
-    #
-    # # START OTHER INTERESTS
-    # # Write Header
-    # c.setFont("Helvetica-Bold", 12 * point)
-    # c.drawString(1 * inch, v, "Other Interests")
-    # v -= 12 * point
-    #
-    # # Write Details
-    # c.setFont("Helvetica", 8 * point)
-    # v = draw_paragraph(c, v, other_interests)
-    # # c.setFont("Helvetica", 12 * point) line possibly not needed
-    # v -= 12 * point
-
 
     draw_footer(c, v)
 
@@ -444,35 +314,9 @@ def draw_paragraph(c, v, text):
     return v
 
 
-# def draw_bullet_point(c, v, text):
-#     current_word_start_index = 0
-#     end_of_last_line = 0
-#     max_letters_in_line = 118
-#     is_first_line = True
-#     for i, char in enumerate(text):
-#         if char == ' ':
-#             current_word_start_index = i + 1
-#         if i % max_letters_in_line == 0:
-#             if is_first_line:
-#                 c.drawString(1 * inch, v, text[end_of_last_line:current_word_start_index])
-#                 is_first_line = False
-#             else:
-#                 c.drawString(1 * inch, v, "    " + text[end_of_last_line:current_word_start_index])
-#             end_of_last_line = current_word_start_index
-#             if i != 0:
-#                 v -= 12 * point
-#         elif i == len(text) - 1:
-#             c.drawString(1 * inch, v, text[end_of_last_line:])
-#             v -= 12 * point
-#     return v
-
-
-
-
 def read_data_from_csv():
     responses = []
     questions = []
-    # student_details_file = open("data/responses_fromGoogle.csv")
     student_details_file = open("student_responses.csv")
     for i, line in enumerate(student_details_file):
         if i != 0:
@@ -497,61 +341,27 @@ def main():
     questions = []
 
     responses, questions = read_data_from_csv()
-    # for i, question in enumerate(questions):
-    #     print((question.replace(" ", "_").lower()), '= student_details[' + str(i) + ']')
+
     responses = replace_commas(responses)
     for response in responses:
         (make_resume(response))
 
 
     # group output
-    output_all_pdf = PdfFileMerger()
-    output_all_list = []
+    # output_all_pdf = PdfFileMerger()
+    # output_all_list = []
 
-    pdfs_path = "/home/james/PycharmProjects/cv_ibl_2020_jan/out/"
-    filenames = []
-    for file_name in os.listdir(pdfs_path):
-        # output_all_pdf.append(open("output_smaller_3/" + file_name))
-        filenames.append(file_name)
-    filenames.sort()
-    for file_name in filenames:
-        print(file_name)
-        temp = "/home/james/PycharmProjects/cv_ibl_2020_jan/out/" + file_name
-        output_all_pdf.append(open(temp, 'rb'))
-    # output_all = open("grouped_output/grouped_test_smaller.pdf", "wb")
-    output_all = open("/home/james/PycharmProjects/cv_ibl_2020_jan/output_jan_2020.pdf", "wb")
-    output_all_pdf.write(output_all)
+    # pdfs_path = 'C:/Users/User/projects/cv_ibl_2020_jan/out/'
+    # filenames = []
+    # for file_name in os.listdir(pdfs_path):
+    #     # output_all_pdf.append(open("output_smaller_3/" + file_name))
+    #     filenames.append(file_name)
+    # filenames.sort()
+    # for file_name in filenames:
+    #     print(file_name)
+    #     temp = "C:/Users/User/projects/cv_ibl_2020_jan/out" + file_name
+    #     output_all_pdf.append(open(temp, 'rb'))
+    # output_all = open("C:/Users/User/projects/cv_ibl_2020_jan", "wb")
+    # output_all_pdf.write(output_all)
 
-#
 main()
-
-
-#
-# #
-# responses, questions = read_data_from_csv()
-# for i, question in enumerate(questions):
-#     print((question.replace(" ", "_").lower()), '= student_details[' + str(i) + ']')
-# responses = replace_commas(responses)
-# for response in responses:
-#     (make_resume(response))
-#     print(response)
-
-
-
-
-
-
-#
-# # Todo: Images
-
-# responses = []
-# questions = []
-#
-# responses, questions = read_data_from_csv()
-# for i, question in enumerate(questions):
-#     print((question.replace(" ", "_").lower()), '= student_details[' + str(i) + ']')
-
-
-
-
-
