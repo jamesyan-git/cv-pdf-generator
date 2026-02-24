@@ -1,0 +1,8 @@
+*.pdf
+*.xlsx
+images/
+out/
+*.csv
+.idea/
+__pycache__/
+*.png
