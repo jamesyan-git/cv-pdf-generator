@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+import csv
 from pathlib import Path
 from pypdf import PdfWriter
 from reportlab.pdfgen import canvas
+
+from models import Student
 import regex_stuff
 
 """
@@ -42,24 +45,20 @@ LOGO_PATH = Path("fit_logo.png")
 OUTPUT_PDF = Path("output_jan_2020.pdf")
 
 
-def make_resume(student_details):
-    # Setup
-    IBL_ID = student_details[0]
-    Last_name = student_details[1]
-    First_name = student_details[2]
-    Preferred_name = student_details[3]
-    degree = student_details[4]
-    major = student_details[5]
-    specialisation = student_details[6]
-    ibl_placement_interest = student_details[7]
-    fav_subjects = student_details[8]
-    employment_history = student_details[9]
-    career_interests = student_details[10]
-    other_interests = student_details[11]
-    photo = student_details[12]
-
-    ibl_id = "{:03d}".format(int(IBL_ID))
-    IBL_ID = str(ibl_id)
+def make_resume(student: Student):
+    IBL_ID = student.ibl_id  # already zero-padded to 3 digits by Student.__post_init__
+    Last_name = student.last_name
+    First_name = student.first_name
+    Preferred_name = student.preferred_name
+    degree = student.degree
+    major = student.major
+    specialisation = student.specialisation
+    ibl_placement_interest = student.ibl_placement_interest
+    fav_subjects = student.units_enjoyed
+    employment_history = student.employment_history
+    career_interests = student.career_interests
+    other_interests = student.other_interests
+    photo = student.photo
 
     output_filename = OUTPUT_DIR / "{}_{}.pdf".format(
         str(Last_name).replace(' ', '_'), First_name.replace(' ', '_')
@@ -110,10 +109,6 @@ def make_resume(student_details):
     except OSError as e:
         print("Error: ", e)
 
-    # Insert IBL ID
-    id = student_details[0]
-    if id[0] == '0':
-        id = id[1]
     c.setFont("Helvetica-Bold", 36 * point)
 
     """
@@ -292,32 +287,34 @@ def draw_paragraph(c, v, text):
     return v
 
 
-def read_data_from_csv():
-    responses = []
-    questions = []
-    student_details_file = open(CSV_PATH)
-    for i, line in enumerate(student_details_file):
-        if i != 0:
-            responses.append(line.strip().split(','))
-        else:
-            questions = line.strip().split(',')
-    student_details_file.close()
-    return responses, questions
-
-
-def replace_commas(all_responses):
-    for i, student_response in enumerate(all_responses):
-        for j, section in enumerate(student_response):
-            if '$' in section:
-                all_responses[i][j] = section.replace('$', ',')
-    return all_responses
+def read_students_from_csv(csv_path: Path = CSV_PATH) -> list[Student]:
+    students = []
+    with open(csv_path, newline='', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            row = {k.strip(): v.strip() for k, v in row.items() if k is not None}
+            students.append(Student(
+                ibl_id=row["IBL_ID"],
+                last_name=row["Family Name"],
+                first_name=row["Given Names"],
+                preferred_name=row["Preferred name"],
+                degree=row["Degree"],
+                major=row["Major"],
+                specialisation=row["Specialisation"],
+                ibl_placement_interest=row["IBL Placement Interest"],
+                units_enjoyed=row["Units enjoyed"],
+                employment_history=row["employment_history"],
+                career_interests=row["Career_interests"],
+                other_interests=row["other_interests"],
+                photo=row["photo"],
+            ))
+    return students
 
 
 def main():
-    responses, questions = read_data_from_csv()
-    responses = replace_commas(responses)
-    for response in responses:
-        make_resume(response)
+    students = read_students_from_csv()
+    for student in students:
+        make_resume(student)
 
     # Merge individual PDFs into one combined file
     with PdfWriter() as writer:
